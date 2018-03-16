@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const htmlWebpackPlugin = require("html-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
     devtool: 'evel-source-map',
@@ -9,8 +10,8 @@ module.exports = {
     },
     output: {
         filename: 'js/[name].js',
-        // path: path.resolve(__dirname, 'src/main/resources/static/'),
-        path: path.resolve(__dirname, 'target/classes/static/'),
+        path: path.resolve(__dirname, 'src/main/resources/static/'),
+        // path: path.resolve(__dirname, 'target/classes/static/'),
         publicPath: "/",
         chunkFilename: 'js/[name].js'
     },
@@ -18,26 +19,10 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/,
-                use: [
-                    {
-                        loader: "style-loader/url"
-                    },
-                    {
-                        loader: "file-loader",
-                        options: {
-                            name: "css/[name].[hash:7].css"
-                        }
-                    },
-                    {
-                        loader: "extract-loader",
-                    },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true
-                        }
-                    }
-                ],
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader/url',
+                    use: [ 'css-loader' ]
+                })
             },
             {
                 test: /\.js$/,
@@ -50,7 +35,22 @@ module.exports = {
             },
             {
                 test: /\.html$/,
-                loader: "html-loader"
+                use: [
+                    {
+                        loader: "html-loader",
+                        options: {
+                            minimize: true,
+                            removeComments: true,//清除HTML注释
+                            collapseWhitespace: true,//压缩HTML
+                            collapseBooleanAttributes: false,//省略布尔属性的值 <input checked="true"/> ==> <input />
+                            removeEmptyAttributes: false,//删除所有空格作属性值 <input id="" /> ==> <input />
+                            removeScriptTypeAttributes: false,//删除<script>的type="text/javascript"
+                            removeStyleLinkTypeAttributes: false,//删除<style>和<link>的type="text/css"
+                            minifyJS: false,//压缩页面JS
+                            minifyCSS: false//压缩页面CSS
+                        }
+                    }
+                ]
             },
             {
                 test: /\.scss$/,
@@ -65,14 +65,17 @@ module.exports = {
                         }
                     },
                     {
-                        loader: "extract-loader",
+                        loader: "resolve-url-loader",
                     },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true
-                        }
-                    },
+                    // {
+                    //     loader: "extract-loader",
+                    // },
+                    // {
+                    //     loader: 'css-loader',
+                    //     options: {
+                    //         sourceMap: true
+                    //     }
+                    // },
                     {
                         loader: 'sass-loader',
                         options: {
@@ -102,6 +105,9 @@ module.exports = {
         ]
     },
     plugins: [
+        new ExtractTextPlugin({
+            filename: 'css/[name].css'
+        }),
         new webpack.ProvidePlugin({
             "$": 'jquery',
             "jQuery": 'jquery',
@@ -122,6 +128,18 @@ module.exports = {
                 minifyJS: false,//压缩页面JS
                 minifyCSS: false//压缩页面CSS
             }
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: "lib",
+
+            children: true,
+            // (use all children of the chunk)
+
+            async: true,
+            // (create an async commons chunk)
+
+            minChunks: 2,
+            // (3 children must share the module before it's separated)
         })
     ]
 };
