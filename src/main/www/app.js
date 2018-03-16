@@ -1,4 +1,4 @@
-import angular from "angular";
+import "angular";
 import "angular-ui-router";
 import "angular-animate";
 import "angular-sanitize";
