@@ -4,15 +4,15 @@ const htmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     devtool: 'evel-source-map',
-    entry:{
-        app:['./src/main/www/index.js'],
+    entry: {
+        app: ['./src/main/www/index.js'],
     },
     output: {
         filename: 'js/[name].js',
         // path: path.resolve(__dirname, 'src/main/resources/static/'),
         path: path.resolve(__dirname, 'target/classes/static/'),
-        publicPath:"/",
-        chunkFilename:'js/[name].js'
+        publicPath: "/",
+        chunkFilename: 'js/[name].js'
     },
     module: {
         rules: [
@@ -25,7 +25,7 @@ module.exports = {
                     {
                         loader: "file-loader",
                         options: {
-                            name:"css/[name].[hash:7].css"
+                            name: "css/[name].[hash:7].css"
                         }
                     },
                     {
@@ -49,19 +49,19 @@ module.exports = {
                 ]
             },
             {
-                test:/\.html$/,
-                loader:"html-loader"
+                test: /\.html$/,
+                loader: "html-loader"
             },
             {
                 test: /\.scss$/,
-                use:[
+                use: [
                     {
                         loader: "style-loader/url"
                     },
                     {
                         loader: "file-loader",
                         options: {
-                            name:"css/[name].[hash:7].css"
+                            name: "css/[name].[hash:7].css"
                         }
                     },
                     {
@@ -69,34 +69,34 @@ module.exports = {
                     },
                     {
                         loader: 'css-loader',
-                        options:{
+                        options: {
                             sourceMap: true
                         }
                     },
                     {
-                        loader:'sass-loader',
-                        options:{
+                        loader: 'sass-loader',
+                        options: {
                             sourceMap: true
                         }
                     }
                 ]
             },
             {
-                test:/\.(woff|woff2|svg|eot|ttf)$/,
+                test: /\.(woff|woff2|svg|eot|ttf)$/,
                 loader: 'url-loader',
                 query: {
                     limit: 500,
                     loader: 'file-loader',
-                    name:"css/fonts/[name].[hash:7].[ext]"
+                    name: "css/fonts/[name].[hash:7].[ext]"
                 }
             },
             {
-                test:/\.(jpeg|jpg|png|gif)$/,
+                test: /\.(jpeg|jpg|png|gif)$/,
                 loader: "url-loader",
                 query: {
-                    limit:100,
+                    limit: 100,
                     loader: 'file-loader',
-                    name:"img/[name].[hash:7].[ext]"
+                    name: "img/[name].[hash:7].[ext]"
                 }
             }
         ]
@@ -109,10 +109,10 @@ module.exports = {
             'window.$': 'jquery'
         }),
         new htmlWebpackPlugin({
-            filename:'index.html', //通过模板生成的文件名
-            template:'./src/main/www/index.html',//模板路径
-            inject:true, //是否自动在模板文件添加 自动生成的js文件链接
-            minify:{
+            filename: 'index.html', //通过模板生成的文件名
+            template: './src/main/www/index.html',//模板路径
+            inject: true, //是否自动在模板文件添加 自动生成的js文件链接
+            minify: {
                 removeComments: true,//清除HTML注释
                 collapseWhitespace: true,//压缩HTML
                 collapseBooleanAttributes: false,//省略布尔属性的值 <input checked="true"/> ==> <input />

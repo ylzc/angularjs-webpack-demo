@@ -59,10 +59,10 @@ module.exports = {
                                             "browsers": [
                                                 "ie >= 9"
                                             ],
-                                            "uglify":true
+                                            "uglify": true
                                         },
                                         "useBuiltIns": true,
-                                        "debug":false
+                                        "debug": false
                                     }
                                 ]
                             ]
