@@ -1,13 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const htmlWebpackPlugin = require("html-webpack-plugin");
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const extractSass = new ExtractTextPlugin({
-    filename: 'css/[name].[hash:7].css'
-});
-const extractCss = new ExtractTextPlugin({
-        filename: 'css/[name].[hash:7].css'
-});
 
 module.exports = {
     devtool: 'evel-source-map',
@@ -24,11 +17,44 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css$/,
-                use: extractCss.extract({
-                    fallback: 'style-loader/url',
-                    use: [ 'css-loader' ]
-                })
+                test: /node_modules[\s\S]*\.css$/,
+                include:  /(node_modules)/,
+                use:[
+                    {
+                        loader: "style-loader"
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true,
+                        }
+                    },
+                ]
+            },
+            {
+
+                test: /www[\s\S]*\.css$/,
+                exclude: /(node_modules|bower_components)/,
+                use: [
+                    {
+                        loader: "style-loader/url"
+                    },
+                    {
+                        loader: "file-loader",
+                        options: {
+                            name: "css/[name].[hash:7].css"
+                        }
+                    },
+                    {
+                        loader: "extract-loader",
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true,
+                        }
+                    },
+                ]
             },
             {
                 test: /\.js$/,
@@ -60,14 +86,33 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                use: extractSass.extract({
-                    fallback: "style-loader/url",
-                    use: [{
-                        loader: "css-loader"
-                    }, {
-                        loader: "sass-loader"
-                    }],
-                })
+                use: [
+                    {
+                        loader: "style-loader/url"
+                    },
+                    {
+                        loader: "file-loader",
+                        options: {
+                            name: "css/[name].[hash:7].css"
+                        }
+                    },
+                    {
+                        loader: "extract-loader",
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true,
+                            importLoaders:1
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    }
+                ]
             },
             {
                 test: /\.(woff|woff2|svg|eot|ttf)$/,
@@ -90,8 +135,6 @@ module.exports = {
         ]
     },
     plugins: [
-        extractCss,
-        extractSass,
         new webpack.ProvidePlugin({
             "$": 'jquery',
             "jQuery": 'jquery',
