@@ -10,7 +10,6 @@ app.config(($urlRouterProvider,$locationProvider,$stateProvider)=>{
         .state(test.name,test.config)
         .state(other.name,other.config)
         .state(temp.name,temp.config)
-        .state(test1.name,test1.config)
 
     $urlRouterProvider
         .otherwise("/test")

@@ -2,10 +2,12 @@ import "angular";
 import modal from 'angular-ui-bootstrap/src/modal';
 import _ from "lodash";
 import tempModal from "./tempModal.html";
+import b from "../../directives/sucsoft/plugins/b";
 
 angular
     .module("temp", [
-        modal
+        modal,
+        b
     ])
     .controller("tempCtrl", ($scope, $uibModal) => {
 

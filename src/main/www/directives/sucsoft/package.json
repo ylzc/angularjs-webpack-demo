@@ -1,0 +1,39 @@
+{
+  "name": "sucsoft",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.42",
+    "@babel/preset-env": "^7.0.0-beta.42",
+    "babel-loader": "^8.0.0-beta.2",
+    "babel-plugin-angularjs-annotate": "^0.8.2",
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^0.28.9",
+    "extract-loader": "^1.0.2",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.11",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.0.6",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.20.1",
+    "uglifyjs-webpack-plugin": "^1.2.2",
+    "url-loader": "^1.0.1",
+    "webpack": "^3.11.0",
+    "webpack-cli": "^2.0.9"
+  },
+  "scripts": {
+    "watch": "webpack -w",
+    "webpack": "webpack",
+    "prod": "webpack --config webpack.prod.config.js",
+    "dll": "webpack --config webpack.dll.config.js"
+  },
+  "dependencies": {
+    "angular": "^1.6.9",
+    "angular-animate": "^1.6.9",
+    "angular-sanitize": "^1.6.9",
+  }
+}

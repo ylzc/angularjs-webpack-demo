@@ -20,3 +20,5 @@ angular
         };
 
     });
+
+export default "services.testServices"
