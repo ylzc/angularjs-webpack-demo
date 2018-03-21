@@ -12,14 +12,14 @@ module.exports = {
         path: path.resolve(__dirname, 'src/main/resources/static/'),
         // path: path.resolve(__dirname, 'target/classes/static/'),
         publicPath: "/",
-        chunkFilename: 'js/[name].js'
+        chunkFilename:'js/[name].js'
     },
     module: {
         rules: [
             {
                 test: /node_modules[\s\S]*\.css$/,
-                include:  /(node_modules)/,
-                use:[
+                include: /(node_modules)/,
+                use: [
                     {
                         loader: "style-loader"
                     },
@@ -103,7 +103,7 @@ module.exports = {
                         loader: 'css-loader',
                         options: {
                             sourceMap: true,
-                            importLoaders:1
+                            importLoaders: 1
                         }
                     },
                     {
@@ -157,7 +157,7 @@ module.exports = {
             }
         }),
         new webpack.optimize.CommonsChunkPlugin({
-            name: "lib",
+            name: "app",
 
             children: true,
             // (use all children of the chunk)
@@ -166,7 +166,6 @@ module.exports = {
             // (create an async commons chunk)
 
             minChunks: 2,
-            // (3 children must share the module before it's separated)
         })
     ]
 };

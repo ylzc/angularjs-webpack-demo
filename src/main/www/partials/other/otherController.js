@@ -1,13 +1,14 @@
 import "angular";
-import datepicker from 'angular-ui-bootstrap/src/datepicker';
 import _ from "lodash";
+import directive from "./otherDirectives";
 
-angular.module("temp", [
-    datepicker
-])
-    .controller("tempCtrl", ($scope) => {
+angular
+    .module("other", [
+        directive
+    ])
+    .controller("otherCtrl", ($scope) => {
 
-        console.log(_.defaults({ 'a': 1 }, { 'a': 3, 'b': 2 }));
+        console.log(_.defaults({'a': 1}, {'a': 3, 'b': 2}));
 
         $scope.test = 1;
 
