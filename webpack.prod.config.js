@@ -13,7 +13,8 @@ module.exports = {
         path: path.resolve(__dirname, 'src/main/resources/static/'),
         // path: path.resolve(__dirname, 'target/classes/static/'),
         publicPath: "/",
-        chunkFilename: 'js/[name].js'
+        // publicPath: "/angularjs-webpack-demo/",
+        chunkFilename:'js/[name].js'
     },
     module: {
         rules: [
@@ -27,7 +28,7 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options: {
-                            sourceMap: true,
+                            minimize: true
                         }
                     },
                 ]
@@ -52,10 +53,10 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options: {
-                            minimize: true
+                            sourceMap: true,
                         }
-                    }
-                ],
+                    },
+                ]
             },
             {
                 test: /\.js$/,
@@ -101,7 +102,10 @@ module.exports = {
                         loader: "extract-loader",
                     },
                     {
-                        loader: 'css-loader'
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1
+                        }
                     },
                     {
                         loader: 'sass-loader',
@@ -133,8 +137,14 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin([
-            "./src/main/resources/static/"
+            "./src/main/resources/static/css/",
+            "./src/main/resources/static/img/",
+            "./src/main/resources/static/js/",
         ]),
+        new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require('./'+distPath+'dll/manifest.json')
+        }),
         new webpack.ProvidePlugin({
             "$": 'jquery',
             "jQuery": 'jquery',
@@ -157,7 +167,7 @@ module.exports = {
             }
         }),
         new webpack.optimize.CommonsChunkPlugin({
-            name: "lib",
+            name: "app",
 
             children: true,
             // (use all children of the chunk)
@@ -166,7 +176,6 @@ module.exports = {
             // (create an async commons chunk)
 
             minChunks: 2,
-            // (3 children must share the module before it's separated)
         }),
         new UglifyJsPlugin()
     ]

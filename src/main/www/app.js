@@ -1,8 +1,9 @@
 import "angular";
-import "angular-ui-router";
+import "@uirouter/angularjs";
 import "angular-animate";
 import "angular-sanitize";
-import "oclazyload";
+import "oclazyload/dist/modules/ocLazyLoad.core";
+import "oclazyload/dist/modules/ocLazyLoad.loaders.core";
 
 let app = angular.module("sucsoft",[
     "ui.router",

@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const htmlWebpackPlugin = require("html-webpack-plugin");
 
+const distPath = "src/main/resources/static/";
+
 module.exports = {
     devtool: 'evel-source-map',
     entry: {
@@ -9,9 +11,10 @@ module.exports = {
     },
     output: {
         filename: 'js/[name].js',
-        path: path.resolve(__dirname, 'src/main/resources/static/'),
+        path: path.resolve(__dirname, distPath),
         // path: path.resolve(__dirname, 'target/classes/static/'),
-        publicPath: "/",
+        // publicPath: "/",
+        publicPath: "/angularjs-webpack-demo/",
         chunkFilename:'js/[name].js'
     },
     module: {
@@ -135,6 +138,10 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require('./'+distPath+'dll/manifest.json')
+        }),
         new webpack.ProvidePlugin({
             "$": 'jquery',
             "jQuery": 'jquery',
@@ -154,7 +161,8 @@ module.exports = {
                 removeStyleLinkTypeAttributes: false,//删除<style>和<link>的type="text/css"
                 minifyJS: false,//压缩页面JS
                 minifyCSS: false//压缩页面CSS
-            }
+            },
+            hash:true
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: "app",
