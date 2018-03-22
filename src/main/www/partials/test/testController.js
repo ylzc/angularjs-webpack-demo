@@ -1,7 +1,7 @@
 import {app} from '../../app';
 import "../../services/testService2";
 
-app.controller("testCtrl", ($scope,testService2) => {
+app.controller("testCtrl", ($scope, testService2, $http) => {
     $scope.page = {
         option: {
             xAxis: {
@@ -17,6 +17,15 @@ app.controller("testCtrl", ($scope,testService2) => {
             }]
         }
     }
-    testService2.set("test",{id:1});
+    testService2.set("test", {id: 1});
     console.log(testService2)
+
+    $http
+        .get("hello")
+        .then((data) => {
+            console.log(data)
+        })
+        .catch(() => {
+
+        })
 })

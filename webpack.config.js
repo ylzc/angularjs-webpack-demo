@@ -14,7 +14,7 @@ module.exports = {
         path: path.resolve(__dirname, distPath),
         // path: path.resolve(__dirname, 'target/classes/static/'),
         // publicPath: "/",
-        publicPath: "/angularjs-webpack-demo/",
+        publicPath: "http://localhost:3000/",
         chunkFilename:'js/[name].js'
     },
     module: {
@@ -174,6 +174,15 @@ module.exports = {
             // (create an async commons chunk)
 
             minChunks: 2,
-        })
-    ]
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+    ],
+    devServer: {
+        historyApiFallback: true,
+        inline: true,
+        contentBase: path.join(__dirname, distPath),
+        hot: true,
+        index: 'index.html',
+        port: 3000
+    },
 };
