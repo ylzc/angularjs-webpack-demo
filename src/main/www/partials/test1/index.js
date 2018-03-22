@@ -8,6 +8,12 @@ const view = {
     config: {
         url: "/test1",
         template: test,
+        onEnter:function(){
+            console.log("enter")
+        },
+        onExit:()=>{
+            console.log("exit")
+        }
     }
 };
 
