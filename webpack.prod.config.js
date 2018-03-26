@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const htmlWebpackPlugin = require("html-webpack-plugin");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
@@ -165,18 +164,6 @@ module.exports = {
                 minifyJS: false,//压缩页面JS
                 minifyCSS: false//压缩页面CSS
             }
-        }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: "app",
-
-            children: true,
-            // (use all children of the chunk)
-
-            async: true,
-            // (create an async commons chunk)
-
-            minChunks: 2,
-        }),
-        new UglifyJsPlugin()
+        })
     ]
 };
