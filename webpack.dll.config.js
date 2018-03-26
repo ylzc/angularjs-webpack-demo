@@ -26,7 +26,6 @@ module.exports = {
             path: 'src/main/resources/static/dll/manifest.json',
             name: '[name]',
             context: __dirname,
-        }),
-        new UglifyJsPlugin(),
+        })
     ],
 };
