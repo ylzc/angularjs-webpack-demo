@@ -12,9 +12,7 @@ module.exports = {
     output: {
         filename: 'js/[name].js',
         path: path.resolve(__dirname, distPath),
-        // path: path.resolve(__dirname, 'target/classes/static/'),
-        // publicPath: "/",
-        publicPath: "http://localhost:3000/",
+        publicPath: "http://localhost:8080/",
         chunkFilename:'js/[name].js'
     },
     module: {
@@ -27,10 +25,7 @@ module.exports = {
                         loader: "style-loader"
                     },
                     {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true,
-                        }
+                        loader: 'css-loader'
                     },
                 ]
             },
@@ -52,10 +47,7 @@ module.exports = {
                         loader: "extract-loader",
                     },
                     {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true,
-                        }
+                        loader: 'css-loader'
                     },
                 ]
             },
@@ -103,17 +95,10 @@ module.exports = {
                         loader: "extract-loader",
                     },
                     {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true,
-                            importLoaders: 1
-                        }
+                        loader: 'css-loader'
                     },
                     {
-                        loader: 'sass-loader',
-                        options: {
-                            sourceMap: true
-                        }
+                        loader: 'sass-loader'
                     }
                 ]
             },
@@ -164,18 +149,6 @@ module.exports = {
             },
             hash:true
         }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: "app",
-
-            children: true,
-            // (use all children of the chunk)
-
-            async: true,
-            // (create an async commons chunk)
-
-            minChunks: 2,
-        }),
-        new webpack.HotModuleReplacementPlugin(),
     ],
     devServer: {
         historyApiFallback: true,
@@ -183,6 +156,6 @@ module.exports = {
         contentBase: path.join(__dirname, distPath),
         hot: true,
         index: 'index.html',
-        port: 3000
+        port: 8080
     },
 };
